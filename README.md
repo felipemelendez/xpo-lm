@@ -63,7 +63,7 @@ Embeddings are numeric representations of text that allow similarity comparisons
 } 
 ```
 
-# Simple example to help visualize how vector matching works
+## Simple example to help visualize how vector matching works
 ```json
 our_data: [0, 0]
           [0, 1]     user_query: [0, 1]
@@ -71,7 +71,7 @@ our_data: [0, 0]
           [1, 1]
 ```
 
-"""## Database
+## Database
 
 Supabase – hosted PostgreSQL database with row-level security, REST and GraphQL APIs, real-time change streams via WebSockets, authentication, and object storage—built to streamline the development of scalable full-stack applications.
 
