@@ -8,7 +8,6 @@ This is an AI chatbot app that can answer questions about Expo projects using do
 - Answers questions with real documentation
 - Shows source links so you can read more
 - Avoids making up information (hallucination)
-- Mobile-friendly interface
 
 ## 🧠 How It Works: RAG Explained
 
