@@ -230,3 +230,7 @@ When a user asks a question:
 3. The documents and query are sent to GPT
 4. GPT generates a response based only on these documents
 5. The response and source links are displayed to the user
+
+## 🎬 Preview
+https://github.com/user-attachments/assets/3b375917-da06-4e2e-9966-b59b553d86fa
+
