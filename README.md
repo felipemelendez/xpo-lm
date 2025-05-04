@@ -27,6 +27,7 @@ This approach is powered by *embeddings*, which help the AI understand semantic 
 5. ChatGPT answers based on this documentation, not its general knowledge
 6. You get a precise answer with source links
 
+## 🧮 Simple RAG Flow Diagram
 ![Simple RAG Flow Diagram](https://github.com/user-attachments/assets/d02332e3-0471-4236-9e89-00890b2d0c80)
 
 
