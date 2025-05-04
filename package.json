@@ -9,14 +9,17 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~53.0.7",
-    "expo-status-bar": "~2.2.3",
-    "react": "19.0.0",
-    "react-native": "0.79.2"
+    "@supabase/supabase-js": "^2.49.4",
+    "expo": "~52.0.19",
+    "expo-status-bar": "~2.0.1",
+    "react": "18.3.1",
+    "react-native": "0.76.9",
+    "react-native-markdown-display": "^7.0.2",
+    "expo-dev-client": "~5.0.20"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
-    "@types/react": "~19.0.10",
+    "@types/react": "~18.3.12",
     "typescript": "~5.8.3"
   },
   "private": true

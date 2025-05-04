@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "AIChatBot",
+    "name": "XpoLM",
     "slug": "AIChatBot",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,17 +13,25 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.felipemelendez2021.AIChatBot",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3b58b5f8-eadd-48e3-a27a-8e6b47239e74"
+      }
     }
   }
 }
