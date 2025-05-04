@@ -232,8 +232,11 @@ When a user asks a question:
 5. The response and source links are displayed to the user
 
 ## 🧩 AI Generated App Icon
-<img src="https://github.com/user-attachments/assets/ad63aa6f-3bdd-48a9-94a3-ccdb6132c4e5" alt="icon-2" width="80" />
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/ad63aa6f-3bdd-48a9-94a3-ccdb6132c4e5" alt="icon-2" width="80" />
+</div>
 
-## 🎬 Preview
-https://github.com/user-attachments/assets/3b375917-da06-4e2e-9966-b59b553d86fa
-
+## 🎬 App Preview
+<div align="center">
+  <a href="https://github.com/user-attachments/assets/3b375917-da06-4e2e-9966-b59b553d86fa">https://github.com/user-attachments/assets/3b375917-da06-4e2e-9966-b59b553d86fa</a>
+</div>
