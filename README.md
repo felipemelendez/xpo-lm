@@ -63,6 +63,7 @@ Embeddings are numeric representations of text that allow similarity comparisons
 } 
 ```
 
+# Simple example to help visualize how vector matching works
 ```json
 our_data: [0, 0]
           [0, 1]     user_query: [0, 1]
