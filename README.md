@@ -1,4 +1,16 @@
-### AIChatBot Project (RAG system)
+# AIChatBot Project: A RAG-Powered Q&A Assistant
+
+## 📚 What is This?
+
+This is an AI chatbot app that can answer questions about Expo projects using documentation from official sources. Unlike traditional chatbots that might make up answers, this system finds and retrieves real documentation before generating responses.
+
+**Key features:**
+- Answers questions with real documentation
+- Shows source links so you can read more
+- Avoids making up information (hallucination)
+- Mobile-friendly interface
+
+## 🧠 How It Works: RAG Explained
 
 **RAG** stands for **Retrieval-Augmented Generation**, a system that combines:
 
@@ -6,6 +18,17 @@
 2. **Generation** – Uses a language model (like GPT) to generate a response based on both the user query and the retrieved information.
 
 This approach is powered by *embeddings*, which help the AI understand semantic similarity between user queries and documentation.
+
+### In plain English:
+
+1. You ask a question
+2. The system converts your question into a special numeric format (embedding)
+3. It searches for documentation with similar numeric patterns
+4. It passes the relevant docs to ChatGPT along with your question
+5. ChatGPT answers based on this documentation, not its general knowledge
+6. You get a precise answer with source links
+
+![Simple RAG Flow Diagram](https://miro.medium.com/v2/resize:fit:1400/1*tLVA29JCUTsrRwX0QM2s0w.png)
 
 ---
 
@@ -19,15 +42,22 @@ This project was built to:
 
 ---
 
-## 🔢 Embeddings
+## 🔢 What Are Embeddings?
 
 Embeddings are numeric representations of text that allow similarity comparisons between inputs.
 
+**In plain English:** They're like converting words into coordinates on a map. Things with similar meaning end up closer together, so we can find related content by measuring distance.
+
+### Example:
+
+- "How to start a new Expo project" and "Initialize Expo application" have different words, but their embeddings would be very similar because they mean almost the same thing.
+- This lets our app find relevant documentation even when the exact words don't match.
+
 **Model used:** `text-embedding-3-small`  
-**Vector size:** `1536`
+**Vector size:** `1536` (each piece of text becomes a list of 1,536 numbers)
 
+### What an embedding looks like
 
-### What output looks like
 ```json
 {
   object: 'embedding',
@@ -38,44 +68,47 @@ Embeddings are numeric representations of text that allow similarity comparisons
      -0.011780473,    0.019939976, -0.00091217074,   -0.012722665,
      0.0046401396,   -0.029066302,      0.0300516,    0.014483886,
      -0.008331929,    -0.02342547,   0.0050835237,     0.02684938,
-      0.051925223,   -0.026135039,   -0.007352789,    0.014163664,
-     -0.023474734,   -0.019976925,    -0.03246558,     0.06222159,
-     -0.009095536,    0.016996397,    -0.00846125,   -0.021011489,
-      0.041308634,    0.018178755,    0.018831516,   -0.015419919,
-      0.016774705,   0.0018582111,    -0.01571551,   -0.033426248,
-     -0.011380197,   -0.036751628,    0.012771931,   -0.012919725,
-     -0.023400836,  -0.0053606387,   -0.030494984,    0.056162007,
-     -0.020223249,     0.07271502,    -0.01022247,   -0.035520006,
-     0.0027988632, -0.00088445924,   0.0013694108,   -0.052664198,
-     -0.047614545,    -0.03253948,    0.006068822,    0.016491432,
-       0.09838204,     0.01603573,    0.018215703,    0.021639615,
-     0.0011638837,     0.00542222,   -0.033623308, -0.00041644252,
-      0.018277286,    0.023240725,    0.037515234,   -0.018338867,
-     -0.033426248,   -0.019915342,     0.04286048,   -0.031997565,
-     -0.038204946,    0.010585799,    0.008368878,    -0.04899396,
-    -0.0028789188,   0.0148903215,   -0.006490653,   -0.038943917,
-     0.0008552082,    -0.01202064,   -0.052516405,   -0.020272514,
-     -0.008171818,   -0.027612986,    -0.03133249,   0.0030975319,
-      -0.00584713,    0.019102473,     0.04928955,     0.03143102,
-        -0.054487,  -0.0066199736,    0.030421088,      0.0696606,
-    ... 1436 more items
+     // ... 1,526 more numbers
   ]
 } 
 ```
 
-## Simple example to help visualize how vector matching works
-```json
-our_data: [0, 0]
-          [0, 1]     user_query: [0, 1]
-          [1, 0]
-          [1, 1]
+## Simple visualization of how vector matching works
+
+Imagine a simplified 2D version:
+
+```
+our_data: [0, 0]   <- This document is at coordinate (0,0)
+          [0, 1]   <- This document is at coordinate (0,1)     
+          [1, 0]   <- This document is at coordinate (1,0)
+          [1, 1]   <- This document is at coordinate (1,1)
+
+user_query: [0, 1] <- User searches for something at coordinate (0,1)
 ```
 
-## Database
+In this example, the document at `[0, 1]` would be the closest match to the user's query, so we'd return that document first.
 
-Supabase – hosted PostgreSQL database with row-level security, REST and GraphQL APIs, real-time change streams via WebSockets, authentication, and object storage—built to streamline the development of scalable full-stack applications.
+In reality, we use 1,536 dimensions instead of just 2, which allows for much more nuanced matching of concepts.
 
-Note: making slug the id to prevent duplicate files (thank you duplicates tech interview question)
+## 🗄️ Database: How Data Is Stored
+
+We use Supabase – a hosted PostgreSQL database with special features:
+
+- Row-level security
+- REST and GraphQL APIs
+- Real-time change streams via WebSockets
+- Built-in vector similarity search with `pgvector`
+- Authentication and object storage
+
+### How We Store Documentation
+
+Each piece of documentation is:
+1. Split into chunks
+2. Converted to embeddings (those 1,536-number vectors)
+3. Stored with its URL and title
+4. Made searchable by vector similarity
+
+We use the document's path as its ID to prevent duplicates:
 
 ```sql
 Error inserting data: {
@@ -86,15 +119,19 @@ Error inserting data: {
 }
 ```
 
-### Querying a vector / embedding [#](https://supabase.com/docs/guides/ai/vector-columns#querying-a-vector--embedding)
+## 🔍 How Vector Search Works
 
-Similarity search is the most common use case for vectors. `pgvector` supports 3 new operators for computing distance:
+When searching for similar vectors, `pgvector` supports 3 distance measurements:
 
 | **Operator** | **Description**           |
 |--------------|---------------------------|
 | `<->`        | Euclidean distance        |
 | `<#>`        | Negative inner product    |
 | `<=>`        | Cosine distance           |
+
+Our system uses cosine distance (`<=>`) which measures the angle between vectors and works well for text similarity.
+
+### The Function That Handles Search
 
 ```sql
 create or replace function match_documents (
@@ -121,13 +158,17 @@ as $$
   limit match_count;
 $$;
 ```
-This function takes a `query_embedding` argument and compares it to all other embeddings in the `documents` table. Each comparison returns a similarity score. If the similarity is greater than the `match_threshold` argument, it is returned. The number of rows returned is limited by the `match_count` argument.
 
-The `match_threshold` ensures that only documents that have a minimum similarity to the `query_embedding` are returned. Without this, you may end up returning documents that subjectively don't match. This value will vary for each application - you will need to perform your own testing to determine the threshold that makes sense for your app.
+This function:
+1. Takes a user's query embedding
+2. Compares it to all document embeddings
+3. Calculates a similarity score (1.0 = identical, 0.0 = completely different)
+4. Returns only documents above a threshold (to ensure relevance)
+5. Limits the number of results returned
 
-If you index your vector column, ensure that the `order by` sorts by the distance function directly (rather than sorting by the calculated `similarity` column, which may lead to the index being ignored and poor performance).
+### In Action: Client-Side Code
 
-```sql
+```javascript
 const { data: documents } = await supabaseClient.rpc('match_documents', {
   query_embedding: embedding, // Pass the embedding you want to compare
   match_threshold: 0.78, // Choose an appropriate threshold for your data
@@ -135,13 +176,13 @@ const { data: documents } = await supabaseClient.rpc('match_documents', {
 })
 ```
 
-In this example `embedding` would be another embedding you wish to compare against your table of pre-generated embedding documents. For example if you were building a search engine, every time the user submits their query you would first generate an embedding on the search query itself, then pass it into the above `rpc()` function to match.
+**Important Note:** You must use embeddings from the same model when calculating distance. Comparing embeddings from different models will produce meaningless results.
 
-Each model has a “unique perspective” of the world
+## 📱 Sample Response
 
-⚠️ Be sure to use embeddings produced from the same embedding model when calculating distance. Comparing embeddings from two different models will produce no meaningful result.
+Here's an example of what happens when a user asks a question:
 
-```
+```javascript
 runPrompt("How do we initialize a new project with Expo?")
 
 {
@@ -162,3 +203,29 @@ runPrompt("How do we initialize a new project with Expo?")
   error: null
 }
 ```
+
+The system found these two documents related to the query, with similarity scores of about 0.57 (57% similar). The assistant will use this documentation to craft its response, then include these links so the user can read more.
+
+## 🚀 Use Cases
+
+This RAG architecture can be applied to various domains:
+
+- Customer support systems with accurate product information
+- Internal company knowledge bases
+- Educational tools for specific subjects
+- Medical information assistants
+- Legal research assistants
+
+## 🔧 Technical Architecture
+
+1. **Frontend**: React Native/Expo mobile app
+2. **Backend**: Supabase Edge Functions
+3. **Database**: Supabase PostgreSQL with pgvector
+4. **AI**: OpenAI's GPT-4o for generation and text-embedding-3-small for embeddings
+
+When a user asks a question:
+1. The query is converted to an embedding
+2. Similar documents are retrieved from the database
+3. The documents and query are sent to GPT
+4. GPT generates a response based only on these documents
+5. The response and source links are displayed to the user
