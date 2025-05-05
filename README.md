@@ -236,5 +236,6 @@ When a user asks a question:
 </div>
 
 ## 🎬 Preview
-https://github.com/user-attachments/assets/3b375917-da06-4e2e-9966-b59b553d86fa
+https://github.com/user-attachments/assets/c159adb0-e059-43ea-97c3-59b4dc54acef
+
 
