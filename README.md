@@ -93,15 +93,14 @@ In reality, we use 1,536 dimensions instead of just 2, which allows for much mor
 
 ## 🗄️ Database: How Data Is Stored
 
-We use Supabase – a hosted PostgreSQL database with special features:
+I used Supabase – a hosted PostgreSQL database with special features:
 
 - Row-level security
 - REST and GraphQL APIs
 - Real-time change streams via WebSockets
 - Built-in vector similarity search with `pgvector`
-- Authentication and object storage
 
-### How We Store Documentation
+### How Documentation is Stored
 
 Each piece of documentation is:
 1. Split into chunks
@@ -109,7 +108,7 @@ Each piece of documentation is:
 3. Stored with its URL and title
 4. Made searchable by vector similarity
 
-We use the document's path as its ID to prevent duplicates:
+I use the document's path as its ID to prevent duplicates:
 
 ```sql
 Error inserting data: {
