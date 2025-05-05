@@ -1,4 +1,4 @@
-# AIChatBot Project: A RAG-Powered Q&A Assistant
+# AI Chat Bot Project: A RAG-Powered Q&A Assistant
 
 ## 📚 What is This?
 
